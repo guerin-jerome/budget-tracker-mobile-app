@@ -1,6 +1,8 @@
+import { TAppState } from "../../types";
 import { USER_ACTION_TYPES } from "./constants";
+import { TUserAction } from "./types";
 
-export const userReducer = (state: AppState, action: Action) => {
+export const userReducer = (state: TAppState, action: TUserAction) => {
     const { type, payload } = action;
     switch(type) {
         case USER_ACTION_TYPES.set:
