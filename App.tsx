@@ -5,19 +5,29 @@
  * @format
  */
 import React, {useReducer, createContext, useMemo} from 'react';
-import {SafeAreaView, ScrollView, StatusBar, View} from 'react-native';
-import {NativeBaseProvider} from 'native-base';
+import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
 import {TAppContext} from './features/types';
 import {reducer} from './features/reducer';
-import {Login} from './features/authentication/components/Login';
+import {screenHeight, screenWidth} from './features/common/constants';
+import {AuthenticationContainer} from './features/authentication/containers/AuthenticationContainer';
 
-const initialState = {user: null};
+/** Style */
+const style = StyleSheet.create({
+  appContainer: {
+    height: screenHeight,
+    width: screenWidth,
+  },
+});
+
+/** State management */
+export const initialState = {user: null};
 
 const AppContext = createContext<TAppContext>({
   appState: initialState,
   dispatch: () => null,
 });
 
+/** Display */
 const App = () => {
   const [appState, dispatch] = useReducer(reducer, initialState);
 
@@ -28,20 +38,12 @@ const App = () => {
 
   return (
     <AppContext.Provider value={appContextValue}>
-      <NativeBaseProvider>
-        <SafeAreaView>
-          <StatusBar />
-          <ScrollView
-            style={{
-              height: '100%',
-              width: '100%',
-            }}>
-            <View>
-              <Login />
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </NativeBaseProvider>
+      <SafeAreaView>
+        <StatusBar />
+        <ScrollView style={style.appContainer}>
+          <AuthenticationContainer type="login" />
+        </ScrollView>
+      </SafeAreaView>
     </AppContext.Provider>
   );
 };
