@@ -18,6 +18,7 @@ const authenticationContainerStyles = StyleSheet.create({
   },
   body: {
     // backgroundColor: 'green',
+    justifyContent: 'center',
     flex: 3,
   },
   footer: {
@@ -67,7 +68,17 @@ const authenticationElementStyles = StyleSheet.create({
 
 const loginContainerStyles = StyleSheet.create({});
 
-const loginElementStyles = StyleSheet.create({});
+const loginElementStyles = StyleSheet.create({
+  label: {
+    fontSize: 15,
+  },
+  input: {
+    borderRadius: 3,
+    borderWidth: 2,
+    padding: 10,
+    marginBottom: 15,
+  },
+});
 
 export {
   authenticationContainerStyles,
