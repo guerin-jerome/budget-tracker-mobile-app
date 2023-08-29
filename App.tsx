@@ -4,14 +4,12 @@
  *
  * @format
  */
-import React, {useReducer, createContext, useMemo} from 'react';
+import React from 'react';
 import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
-import {TAppContext} from './features/types';
-import {reducer} from './features/reducer';
-import {screenHeight, screenWidth} from './features/common/constants';
-import {AuthenticationContainer} from './features/authentication/containers/AuthenticationContainer';
+import {screenHeight, screenWidth} from './constants';
+import {AppStore} from './store/store';
+import {Authentication} from './features/authentication/Authentication';
 
-/** Style */
 const style = StyleSheet.create({
   appContainer: {
     height: screenHeight,
@@ -19,33 +17,16 @@ const style = StyleSheet.create({
   },
 });
 
-/** State management */
-export const initialState = {user: null};
-
-const AppContext = createContext<TAppContext>({
-  appState: initialState,
-  dispatch: () => null,
-});
-
 /** Display */
-const App = () => {
-  const [appState, dispatch] = useReducer(reducer, initialState);
-
-  const appContextValue = useMemo(
-    () => ({appState, dispatch}),
-    [appState, dispatch],
-  );
-
-  return (
-    <AppContext.Provider value={appContextValue}>
-      <SafeAreaView>
-        <StatusBar />
-        <ScrollView style={style.appContainer}>
-          <AuthenticationContainer type="login" />
-        </ScrollView>
-      </SafeAreaView>
-    </AppContext.Provider>
-  );
-};
+const App = () => (
+  <AppStore>
+    <SafeAreaView>
+      <StatusBar />
+      <ScrollView style={style.appContainer}>
+        <Authentication type="login" />
+      </ScrollView>
+    </SafeAreaView>
+  </AppStore>
+);
 
 export default App;

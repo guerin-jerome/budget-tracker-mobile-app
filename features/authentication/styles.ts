@@ -1,34 +1,27 @@
 import {StyleSheet} from 'react-native';
-import {screenHeight, screenWidth} from '../../common/constants';
+import {screenHeight, screenWidth} from '../../constants';
 
-/**
- * Authentication
- */
-
-const authenticationContainerStyles = StyleSheet.create({
+export const authenticationContainerStyles = StyleSheet.create({
   container: {
     height: screenHeight,
     width: screenWidth,
     padding: 25,
   },
   header: {
-    // backgroundColor: 'red',
     flex: 1,
     justifyContent: 'center',
   },
   body: {
-    // backgroundColor: 'green',
     justifyContent: 'center',
     flex: 3,
   },
   footer: {
-    // backgroundColor: 'blue',
     justifyContent: 'flex-start',
     flex: 1,
   },
 });
 
-const authenticationElementStyles = StyleSheet.create({
+export const authenticationElementStyles = StyleSheet.create({
   logo: {
     height: 60,
     width: 60,
@@ -61,28 +54,3 @@ const authenticationElementStyles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-/**
- * Login
- */
-
-const loginContainerStyles = StyleSheet.create({});
-
-const loginElementStyles = StyleSheet.create({
-  label: {
-    fontSize: 15,
-  },
-  input: {
-    borderRadius: 3,
-    borderWidth: 2,
-    padding: 10,
-    marginBottom: 15,
-  },
-});
-
-export {
-  authenticationContainerStyles,
-  authenticationElementStyles,
-  loginContainerStyles,
-  loginElementStyles,
-};
