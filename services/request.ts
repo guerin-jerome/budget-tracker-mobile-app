@@ -52,8 +52,6 @@ const request = async <T>(
       return response.text();
     }
 
-    console.debug(response.status);
-
     throw new ErrorResponse(response.status, await response.text());
   });
 };

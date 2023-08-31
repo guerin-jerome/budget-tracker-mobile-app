@@ -9,6 +9,16 @@ import {logoSource} from '../../constants';
 import {Login} from './login/Login';
 import {AppContext} from '../../store/store';
 import {authenticationService} from '../../services/authentication';
+import {
+  resetLoginForm,
+  setLoginErrors,
+} from '../../store/appForms/login/actions';
+import {setUser} from '../../store/user/actions';
+import {isLoginFieldsFilled} from './utils';
+import {
+  getLoginEmail,
+  getLoginPassword,
+} from '../../store/appForms/login/selectors';
 
 const {container, header, body, footer} = authenticationContainerStyles;
 const {
@@ -22,18 +32,55 @@ const {
 } = authenticationElementStyles;
 
 export const Authentication = ({type}: TAuthenticationProps) => {
-  const {appState} = useContext(AppContext);
-  const {email, password} = appState.appForms.login || {};
+  const {appState, dispatch} = useContext(AppContext);
 
   const onSubmitForm = () => {
-    const body = {
-      email: email!,
-      password: password!,
-    };
-    authenticationService
-      .login(body)
-      .then(data => console.debug('DEBUG data : ', data))
-      .catch(error => console.debug('DEBUG error : ', error.status));
+    switch (type) {
+      case 'login':
+        login();
+        break;
+      case 'register':
+        break;
+    }
+  };
+
+  const login = () => {
+    if (isLoginFieldsFilled(appState)) {
+      const email = getLoginEmail(appState);
+      const password = getLoginPassword(appState);
+      authenticationService
+        .login({email, password})
+        .then(data => {
+          dispatch(setUser(data));
+          dispatch(resetLoginForm());
+        })
+        .catch(error => {
+          switch (error.status) {
+            case 400:
+              dispatch(
+                setLoginErrors({
+                  message:
+                    'Vos identifiants sont incorrects, veuillez vérifier.',
+                }),
+              );
+              break;
+            case 500:
+            default:
+              dispatch(
+                setLoginErrors({
+                  message: 'Une erreur est survenue, veuillez réessayer.',
+                }),
+              );
+              break;
+          }
+        });
+    } else {
+      dispatch(
+        setLoginErrors({
+          message: 'Veuillez remplir tous les champs.',
+        }),
+      );
+    }
   };
 
   return (

@@ -6,12 +6,18 @@ import {
   setLoginEmail,
   setLoginPassword,
 } from '../../../store/appForms/login/actions';
+import {
+  getLoginEmail,
+  getLoginErrors,
+  getLoginPassword,
+} from '../../../store/appForms/login/selectors';
 
-const {label, input} = loginElementStyles;
+const {label, input, errorText} = loginElementStyles;
 
 export const Login = () => {
   const {appState, dispatch} = useContext(AppContext);
-  const {email, password} = appState.appForms.login || {};
+
+  const formError = getLoginErrors(appState);
 
   return (
     <>
@@ -19,7 +25,7 @@ export const Login = () => {
         <Text style={label}>Email</Text>
         <TextInput
           style={input}
-          value={email}
+          value={getLoginEmail(appState)}
           onChangeText={text => dispatch(setLoginEmail(text))}
         />
       </View>
@@ -30,10 +36,11 @@ export const Login = () => {
           autoComplete="current-password"
           textContentType="password"
           secureTextEntry
-          value={password}
+          value={getLoginPassword(appState)}
           onChangeText={text => dispatch(setLoginPassword(text))}
         />
       </View>
+      {formError?.message && <Text style={errorText}>{formError.message}</Text>}
     </>
   );
 };

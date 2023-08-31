@@ -1,3 +1,5 @@
+import {TErrorForm} from '../../types';
+
 export type TLoginSetEmailAction = {
   type: 'appForms.login.type.set_email';
   payload: {
@@ -14,4 +16,17 @@ export type TLoginSetPasswordAction = {
   };
 };
 
-export type TLoginActions = TLoginSetEmailAction | TLoginSetPasswordAction;
+export type TLoginSetErrorsAction = {
+  type: 'appForms.login.type.set_errors';
+  payload: TErrorForm;
+};
+
+export type TLoginResetForm = {
+  type: 'appForms.login.type.reset_form';
+};
+
+export type TLoginActions =
+  | TLoginSetEmailAction
+  | TLoginSetPasswordAction
+  | TLoginSetErrorsAction
+  | TLoginResetForm;
