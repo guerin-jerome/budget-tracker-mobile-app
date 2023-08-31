@@ -1,6 +1,6 @@
 import {TAppState} from '../../types';
 import {
-  ACTION_LOGIN_SET_EMAIL_OR_USERNAME_TYPE,
+  ACTION_LOGIN_SET_EMAIL_TYPE,
   ACTION_LOGIN_SET_PASSWORD_TYPE,
 } from './constants';
 import {TLoginActions} from './types';
@@ -14,7 +14,7 @@ export const loginReducer = (
 
   switch (type) {
     case ACTION_LOGIN_SET_PASSWORD_TYPE:
-    case ACTION_LOGIN_SET_EMAIL_OR_USERNAME_TYPE:
+    case ACTION_LOGIN_SET_EMAIL_TYPE:
       return {
         ...state,
         appForms: {

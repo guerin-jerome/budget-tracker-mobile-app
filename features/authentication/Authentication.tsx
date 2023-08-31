@@ -8,6 +8,7 @@ import {
 import {logoSource} from '../../constants';
 import {Login} from './login/Login';
 import {AppContext} from '../../store/store';
+import {authenticationService} from '../../services/authentication';
 
 const {container, header, body, footer} = authenticationContainerStyles;
 const {
@@ -22,9 +23,17 @@ const {
 
 export const Authentication = ({type}: TAuthenticationProps) => {
   const {appState} = useContext(AppContext);
+  const {email, password} = appState.appForms.login || {};
 
   const onSubmitForm = () => {
-    console.debug('onSubmitForm appState => ', appState);
+    const body = {
+      email: email!,
+      password: password!,
+    };
+    authenticationService
+      .login(body)
+      .then(data => console.debug('DEBUG data : ', data))
+      .catch(error => console.debug('DEBUG error : ', error.status));
   };
 
   return (

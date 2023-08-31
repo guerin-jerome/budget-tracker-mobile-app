@@ -1,16 +1,14 @@
 import {
-  ACTION_LOGIN_SET_EMAIL_OR_USERNAME_KEY,
-  ACTION_LOGIN_SET_EMAIL_OR_USERNAME_TYPE,
+  ACTION_LOGIN_SET_EMAIL_KEY,
+  ACTION_LOGIN_SET_EMAIL_TYPE,
   ACTION_LOGIN_SET_PASSWORD_KEY,
   ACTION_LOGIN_SET_PASSWORD_TYPE,
 } from './constants';
-import {TLoginSetEmailOrUsernameAction, TLoginSetPasswordAction} from './types';
+import {TLoginSetEmailAction, TLoginSetPasswordAction} from './types';
 
-export const setLoginEmailOrUsername = (
-  value: string,
-): TLoginSetEmailOrUsernameAction => ({
-  type: ACTION_LOGIN_SET_EMAIL_OR_USERNAME_TYPE,
-  payload: {key: ACTION_LOGIN_SET_EMAIL_OR_USERNAME_KEY, value},
+export const setLoginEmail = (value: string): TLoginSetEmailAction => ({
+  type: ACTION_LOGIN_SET_EMAIL_TYPE,
+  payload: {key: ACTION_LOGIN_SET_EMAIL_KEY, value},
 });
 
 export const setLoginPassword = (value: string): TLoginSetPasswordAction => ({

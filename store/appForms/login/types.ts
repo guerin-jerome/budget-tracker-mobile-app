@@ -1,7 +1,7 @@
-export type TLoginSetEmailOrUsernameAction = {
-  type: 'appForms.login.type.set_email_or_username';
+export type TLoginSetEmailAction = {
+  type: 'appForms.login.type.set_email';
   payload: {
-    key: 'emailOrUsername';
+    key: 'email';
     value: string;
   };
 };
@@ -14,6 +14,4 @@ export type TLoginSetPasswordAction = {
   };
 };
 
-export type TLoginActions =
-  | TLoginSetEmailOrUsernameAction
-  | TLoginSetPasswordAction;
+export type TLoginActions = TLoginSetEmailAction | TLoginSetPasswordAction;

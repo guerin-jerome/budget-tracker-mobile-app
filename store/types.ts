@@ -1,18 +1,18 @@
 import {Dispatch} from 'react';
-import {TLoginActions} from './appForms/types';
+import {TLoginActions} from './appForms/login/types';
 
-// type TUser = {
-//   id: string;
-//   name: string;
-//   email: string;
-//   phone: string;
-//   password: string;
-//   birthDate: string;
-//   creationDate: string;
-// };
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  birthDate: string;
+  creationDate: string;
+};
 
 type TLoginForm = {
-  emailOrUsername?: string;
+  email?: string;
   password?: string;
 };
 
