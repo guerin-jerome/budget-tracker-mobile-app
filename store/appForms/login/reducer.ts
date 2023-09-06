@@ -49,6 +49,6 @@ export const loginReducer = (
         },
       };
     default:
-      throw new Error(`Unknown action in appFormsReducer, with type: ${type}`);
+      throw new Error(`Unknown action in loginReducer, with type: ${type}`);
   }
 };

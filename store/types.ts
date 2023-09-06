@@ -1,14 +1,13 @@
 import {Dispatch} from 'react';
 import {TLoginActions} from './appForms/login/types';
 import {TUserActions} from './user/types';
+import {TAppFormsActions} from './appForms/types';
 
 export type TUser = {
   id: string;
   name: string;
   email: string;
-  phone: string;
   password: string;
-  birthDate: string;
   creationDate: string;
 };
 
@@ -16,17 +15,29 @@ export type TErrorForm = {
   message: string;
 };
 
+export type TAuthenticationMode = 'login' | 'register';
+
 type TLoginForm = {
   email?: string;
   password?: string;
   errors?: TErrorForm;
 };
 
-type TAppForms = {
-  login?: TLoginForm;
+type TRegisterForm = {
+  name?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  errors?: TErrorForm;
 };
 
-export type TAppActions = TLoginActions | TUserActions;
+type TAppForms = {
+  login?: TLoginForm;
+  register?: TRegisterForm;
+  authenticationMode: TAuthenticationMode;
+};
+
+export type TAppActions = TAppFormsActions | TUserActions;
 
 export type TAppState = {
   appForms: TAppForms;

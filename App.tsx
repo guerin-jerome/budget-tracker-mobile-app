@@ -37,7 +37,7 @@ const App = () => (
     <SafeAreaView>
       <StatusBar />
       <ScrollView style={style.appContainer}>
-        <Authentication type="login" />
+        <Authentication />
       </ScrollView>
     </SafeAreaView>
   </AppStore>

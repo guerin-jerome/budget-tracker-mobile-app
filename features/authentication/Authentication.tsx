@@ -1,5 +1,4 @@
-import React, {useContext} from 'react';
-import {TAuthenticationProps} from './types';
+import React, {useContext, useMemo} from 'react';
 import {Pressable, Text, View, Image} from 'react-native';
 import {
   authenticationContainerStyles,
@@ -14,11 +13,22 @@ import {
   setLoginErrors,
 } from '../../store/appForms/login/actions';
 import {setUser} from '../../store/user/actions';
-import {isLoginFieldsFilled} from './utils';
+import {hasRegisterFieldsFilled} from './utils';
 import {
   getLoginEmail,
   getLoginPassword,
 } from '../../store/appForms/login/selectors';
+import {setAppFormsAuthenticationMode} from '../../store/appForms/actions';
+import {Register} from './register/Register';
+import {
+  resetRegisterForm,
+  setRegisterErrors,
+} from '../../store/appForms/register/actions';
+import {
+  getRegisterEmail,
+  getRegisterName,
+  getRegisterPassword,
+} from '../../store/appForms/register/selectors';
 
 const {container, header, body, footer} = authenticationContainerStyles;
 const {
@@ -31,21 +41,80 @@ const {
   secondElementLink,
 } = authenticationElementStyles;
 
-export const Authentication = ({type}: TAuthenticationProps) => {
+export const Authentication = () => {
   const {appState, dispatch} = useContext(AppContext);
+  const {authenticationMode} = appState.appForms;
+
+  const isLoginMode = useMemo(
+    () => authenticationMode === 'login',
+    [authenticationMode],
+  );
+
+  const onClickChangeAuthenticationMode = () => {
+    const newMode = isLoginMode ? 'register' : 'login';
+    dispatch(setAppFormsAuthenticationMode(newMode));
+  };
 
   const onSubmitForm = () => {
-    switch (type) {
+    switch (authenticationMode) {
       case 'login':
         login();
         break;
       case 'register':
+        register();
         break;
     }
   };
 
+  const register = () => {
+    if (
+      hasRegisterFieldsFilled(
+        appState,
+      ) /** TODO: rajouter les vérifications pour éviter trop d'appels au back */
+    ) {
+      const name = getRegisterName(appState);
+      const email = getRegisterEmail(appState);
+      const password = getRegisterPassword(appState);
+      authenticationService
+        .register({name, email, password})
+        .then(data => {
+          dispatch(setUser(data));
+          dispatch(resetRegisterForm());
+        })
+        .catch(error => {
+          switch (error.status) {
+            case 400:
+              dispatch(
+                setRegisterErrors({
+                  message: 'Vos identifiants existent déjà, veuillez vérifier.',
+                }),
+              );
+              break;
+            case 500:
+            default:
+              dispatch(
+                setRegisterErrors({
+                  message: 'Une erreur est survenue, veuillez réessayer.',
+                }),
+              );
+              break;
+          }
+        });
+    } else {
+      dispatch(
+        setRegisterErrors({
+          message: 'Veuillez remplir tous les champs.',
+        }),
+      );
+    }
+  };
+
   const login = () => {
-    if (isLoginFieldsFilled(appState)) {
+    if (
+      hasRegisterFieldsFilled(
+        appState,
+      ) /** TODO: rajouter les vérifications pour éviter trop d'appels au back */
+    ) {
       const email = getLoginEmail(appState);
       const password = getLoginPassword(appState);
       authenticationService
@@ -89,18 +158,18 @@ export const Authentication = ({type}: TAuthenticationProps) => {
         <Image style={logo} source={logoSource} />
         <Text style={title}>Bienvenu(e) dans Bugdet Tracker !</Text>
       </View>
-      <View style={body}>{type === 'login' ? <Login /> : <></>}</View>
+      <View style={body}>{isLoginMode ? <Login /> : <Register />}</View>
       <View style={footer}>
         <Pressable onPress={onSubmitForm} style={firstButton}>
           <Text style={firstButtonText}>
-            {type === 'login' ? 'Connexion' : 'Inscription'}
+            {isLoginMode ? 'Connexion' : 'Inscription'}
           </Text>
         </Pressable>
         <View style={secondElement}>
           <Text style={secondElementText}>Ou&nbsp;</Text>
-          <Pressable onPress={() => null}>
+          <Pressable onPress={onClickChangeAuthenticationMode}>
             <Text style={secondElementLink}>
-              {type === 'login' ? "s'inscrire" : 'se connecter'}
+              {isLoginMode ? "s'inscrire" : 'se connecter'}
             </Text>
           </Pressable>
         </View>

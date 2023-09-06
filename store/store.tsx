@@ -8,7 +8,7 @@ import React, {
 import {TAppContext, TAppState} from './types';
 import {appReducer} from './reducers';
 
-const initialState: TAppState = {appForms: {}};
+const initialState: TAppState = {appForms: {authenticationMode: 'login'}};
 
 export const AppContext: Context<TAppContext> = createContext<TAppContext>({
   appState: initialState,

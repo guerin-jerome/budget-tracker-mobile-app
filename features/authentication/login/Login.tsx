@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {Text, TextInput, View} from 'react-native';
-import {loginElementStyles} from './styles';
 import {AppContext} from '../../../store/store';
 import {
   setLoginEmail,
@@ -11,8 +10,9 @@ import {
   getLoginErrors,
   getLoginPassword,
 } from '../../../store/appForms/login/selectors';
+import {authenticationElementStyles} from '../styles';
 
-const {label, input, errorText} = loginElementStyles;
+const {label, input, errorText} = authenticationElementStyles;
 
 export const Login = () => {
   const {appState, dispatch} = useContext(AppContext);
