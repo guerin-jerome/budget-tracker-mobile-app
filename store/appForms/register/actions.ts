@@ -1,56 +1,55 @@
 import {TErrorForm} from '../../types';
 import {
-  ACTION_REGISTER_RESET_FORM,
-  ACTION_REGISTER_SET_CONFIRM_PASSWORD_KEY,
-  ACTION_REGISTER_SET_CONFIRM_PASSWORD_TYPE,
-  ACTION_REGISTER_SET_EMAIL_KEY,
-  ACTION_REGISTER_SET_EMAIL_TYPE,
-  ACTION_REGISTER_SET_ERRORS_TYPE,
-  ACTION_REGISTER_SET_NAME_KEY,
-  ACTION_REGISTER_SET_NAME_TYPE,
-  ACTION_REGISTER_SET_PASSWORD_KEY,
-  ACTION_REGISTER_SET_PASSWORD_TYPE,
+  REGISTER_FILLS_OUT_CONFIRM_PASSWORD_KEY,
+  REGISTER_FILLS_OUT_EMAIL_KEY,
+  REGISTER_FILLS_OUT_FORM_TYPE,
+  REGISTER_FILLS_OUT_NAME_KEY,
+  REGISTER_FILLS_OUT_PASSWORD_KEY,
+  REGISTER_ON_ERROR_TYPE,
+  REGISTER_ON_SUCCESS_TYPE,
 } from './constants';
 import {
-  TRegisterResetForm,
-  TRegisterSetConfirmPasswordAction,
-  TRegisterSetEmailAction,
-  TRegisterSetErrorsAction,
-  TRegisterSetNameAction,
-  TRegisterSetPasswordAction,
+  TRegisterFillsOutConfirmPasswordAction,
+  TRegisterFillsOutEmailAction,
+  TRegisterFillsOutNameAction,
+  TRegisterFillsOutPasswordAction,
+  TRegisterOnErrorAction,
+  TRegisterOnSuccessAction,
 } from './types';
 
-export const setRegisterEmail = (value: string): TRegisterSetEmailAction => ({
-  type: ACTION_REGISTER_SET_EMAIL_TYPE,
-  payload: {key: ACTION_REGISTER_SET_EMAIL_KEY, value},
-});
-
-export const setRegisterName = (value: string): TRegisterSetNameAction => ({
-  type: ACTION_REGISTER_SET_NAME_TYPE,
-  payload: {key: ACTION_REGISTER_SET_NAME_KEY, value},
-});
-
-export const setRegisterPassword = (
+export const fillsOutRegisterEmail = (
   value: string,
-): TRegisterSetPasswordAction => ({
-  type: ACTION_REGISTER_SET_PASSWORD_TYPE,
-  payload: {key: ACTION_REGISTER_SET_PASSWORD_KEY, value},
+): TRegisterFillsOutEmailAction => ({
+  type: REGISTER_FILLS_OUT_FORM_TYPE,
+  payload: {key: REGISTER_FILLS_OUT_EMAIL_KEY, value},
 });
 
-export const setRegisterConfirmPassword = (
+export const fillsOutRegisterName = (
   value: string,
-): TRegisterSetConfirmPasswordAction => ({
-  type: ACTION_REGISTER_SET_CONFIRM_PASSWORD_TYPE,
-  payload: {key: ACTION_REGISTER_SET_CONFIRM_PASSWORD_KEY, value},
+): TRegisterFillsOutNameAction => ({
+  type: REGISTER_FILLS_OUT_FORM_TYPE,
+  payload: {key: REGISTER_FILLS_OUT_NAME_KEY, value},
 });
 
-export const setRegisterErrors = (
-  value: TErrorForm,
-): TRegisterSetErrorsAction => ({
-  type: ACTION_REGISTER_SET_ERRORS_TYPE,
+export const fillsOutRegisterPassword = (
+  value: string,
+): TRegisterFillsOutPasswordAction => ({
+  type: REGISTER_FILLS_OUT_FORM_TYPE,
+  payload: {key: REGISTER_FILLS_OUT_PASSWORD_KEY, value},
+});
+
+export const fillsOutRegisterConfirmPassword = (
+  value: string,
+): TRegisterFillsOutConfirmPasswordAction => ({
+  type: REGISTER_FILLS_OUT_FORM_TYPE,
+  payload: {key: REGISTER_FILLS_OUT_CONFIRM_PASSWORD_KEY, value},
+});
+
+export const onRegisterError = (value: TErrorForm): TRegisterOnErrorAction => ({
+  type: REGISTER_ON_ERROR_TYPE,
   payload: value,
 });
 
-export const resetRegisterForm = (): TRegisterResetForm => ({
-  type: ACTION_REGISTER_RESET_FORM,
+export const onRegisterSuccess = (): TRegisterOnSuccessAction => ({
+  type: REGISTER_ON_SUCCESS_TYPE,
 });

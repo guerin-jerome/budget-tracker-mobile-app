@@ -1,9 +1,8 @@
 import {ACTION_APPFORMS_PREFIX} from '../constants';
 
 export const ACTION_LOGIN_PREFIX = 'login.';
-export const ACTION_LOGIN_SET_PASSWORD_TYPE = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}type.set_password`;
-export const ACTION_LOGIN_SET_PASSWORD_KEY = 'password';
-export const ACTION_LOGIN_SET_EMAIL_TYPE = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}type.set_email`;
-export const ACTION_LOGIN_SET_EMAIL_KEY = 'email';
-export const ACTION_LOGIN_SET_ERRORS_TYPE = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}type.set_errors`;
-export const ACTION_LOGIN_RESET_FORM = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}type.reset_form`;
+export const LOGIN_FILLS_OUT_FORM_TYPE = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}fills_out_form.type`;
+export const LOGIN_ON_ERROR_TYPE = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}on_error.type`;
+export const LOGIN_ON_SUCCESS_TYPE = `${ACTION_APPFORMS_PREFIX}${ACTION_LOGIN_PREFIX}on_success.type`;
+export const LOGIN_FILLS_OUT_PASSWORD_KEY = 'password';
+export const LOGIN_FILLS_OUT_EMAIL_KEY = 'email';

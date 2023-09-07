@@ -1,11 +1,8 @@
 import {TAppState} from '../../types';
 import {
-  ACTION_REGISTER_RESET_FORM,
-  ACTION_REGISTER_SET_CONFIRM_PASSWORD_TYPE,
-  ACTION_REGISTER_SET_EMAIL_TYPE,
-  ACTION_REGISTER_SET_ERRORS_TYPE,
-  ACTION_REGISTER_SET_NAME_TYPE,
-  ACTION_REGISTER_SET_PASSWORD_TYPE,
+  REGISTER_FILLS_OUT_FORM_TYPE,
+  REGISTER_ON_ERROR_TYPE,
+  REGISTER_ON_SUCCESS_TYPE,
 } from './constants';
 import {TRegisterActions} from './types';
 
@@ -16,10 +13,7 @@ export const registerReducer = (
   const {type} = action;
 
   switch (type) {
-    case ACTION_REGISTER_SET_NAME_TYPE:
-    case ACTION_REGISTER_SET_EMAIL_TYPE:
-    case ACTION_REGISTER_SET_PASSWORD_TYPE:
-    case ACTION_REGISTER_SET_CONFIRM_PASSWORD_TYPE:
+    case REGISTER_FILLS_OUT_FORM_TYPE:
       // eslint-disable-next-line no-case-declarations
       const {key, value} = action.payload;
       return {
@@ -28,28 +22,28 @@ export const registerReducer = (
           ...state?.appForms,
           register: {
             ...state?.appForms?.register,
-            errors: undefined,
+            error: undefined,
             [key]: value,
           },
         },
       };
-    case ACTION_REGISTER_SET_ERRORS_TYPE:
+    case REGISTER_ON_ERROR_TYPE:
       return {
         ...state,
         appForms: {
           ...state?.appForms,
           register: {
             ...state?.appForms?.register,
-            errors: action.payload,
+            error: action.payload,
           },
         },
       };
-    case ACTION_REGISTER_RESET_FORM:
+    case REGISTER_ON_SUCCESS_TYPE:
       return {
         ...state,
         appForms: {
           ...state?.appForms,
-          register: undefined,
+          register: {isSucceed: true},
         },
       };
     default:

@@ -1,5 +1,4 @@
 import {Dispatch} from 'react';
-import {TLoginActions} from './appForms/login/types';
 import {TUserActions} from './user/types';
 import {TAppFormsActions} from './appForms/types';
 
@@ -20,7 +19,8 @@ export type TAuthenticationMode = 'login' | 'register';
 type TLoginForm = {
   email?: string;
   password?: string;
-  errors?: TErrorForm;
+  error?: TErrorForm;
+  isSucceed?: boolean;
 };
 
 type TRegisterForm = {
@@ -28,7 +28,8 @@ type TRegisterForm = {
   email?: string;
   password?: string;
   confirmPassword?: string;
-  errors?: TErrorForm;
+  error?: TErrorForm;
+  isSucceed?: boolean;
 };
 
 type TAppForms = {

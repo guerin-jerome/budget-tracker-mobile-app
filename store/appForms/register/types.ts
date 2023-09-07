@@ -1,50 +1,50 @@
 import {TErrorForm} from '../../types';
 
-export type TRegisterSetEmailAction = {
-  type: 'appForms.register.type.set_email';
+export type TRegisterFillsOutEmailAction = {
+  type: 'appForms.register.fills_out_form.type';
   payload: {
     key: 'email';
     value: string;
   };
 };
 
-export type TRegisterSetNameAction = {
-  type: 'appForms.register.type.set_name';
+export type TRegisterFillsOutNameAction = {
+  type: 'appForms.register.fills_out_form.type';
   payload: {
     key: 'name';
     value: string;
   };
 };
 
-export type TRegisterSetPasswordAction = {
-  type: 'appForms.register.type.set_password';
+export type TRegisterFillsOutPasswordAction = {
+  type: 'appForms.register.fills_out_form.type';
   payload: {
     key: 'password';
     value: string;
   };
 };
 
-export type TRegisterSetConfirmPasswordAction = {
-  type: 'appForms.register.type.set_confirm_password';
+export type TRegisterFillsOutConfirmPasswordAction = {
+  type: 'appForms.register.fills_out_form.type';
   payload: {
     key: 'confirmPassword';
     value: string;
   };
 };
 
-export type TRegisterSetErrorsAction = {
-  type: 'appForms.register.type.set_errors';
+export type TRegisterOnErrorAction = {
+  type: 'appForms.register.on_error.type';
   payload: TErrorForm;
 };
 
-export type TRegisterResetForm = {
-  type: 'appForms.register.type.reset_form';
+export type TRegisterOnSuccessAction = {
+  type: 'appForms.register.on_success.type';
 };
 
 export type TRegisterActions =
-  | TRegisterSetEmailAction
-  | TRegisterSetNameAction
-  | TRegisterSetPasswordAction
-  | TRegisterSetConfirmPasswordAction
-  | TRegisterSetErrorsAction
-  | TRegisterResetForm;
+  | TRegisterFillsOutNameAction
+  | TRegisterFillsOutEmailAction
+  | TRegisterFillsOutPasswordAction
+  | TRegisterFillsOutConfirmPasswordAction
+  | TRegisterOnErrorAction
+  | TRegisterOnSuccessAction;

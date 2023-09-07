@@ -8,5 +8,7 @@ export const getRegisterPassword = (state: TAppState) =>
   state.appForms.register?.password ?? '';
 export const getRegisterConfirmPassword = (state: TAppState) =>
   state.appForms.register?.confirmPassword ?? '';
+export const getIsRegisterSucceed = (state: TAppState) =>
+  state.appForms.register?.isSucceed ?? false;
 export const getRegisterErrors = (state: TAppState) =>
-  state.appForms.register?.errors;
+  state.appForms.register?.error;

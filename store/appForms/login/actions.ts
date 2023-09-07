@@ -1,34 +1,37 @@
 import {TErrorForm} from '../../types';
 import {
-  ACTION_LOGIN_RESET_FORM,
-  ACTION_LOGIN_SET_EMAIL_KEY,
-  ACTION_LOGIN_SET_EMAIL_TYPE,
-  ACTION_LOGIN_SET_ERRORS_TYPE,
-  ACTION_LOGIN_SET_PASSWORD_KEY,
-  ACTION_LOGIN_SET_PASSWORD_TYPE,
+  LOGIN_FILLS_OUT_EMAIL_KEY,
+  LOGIN_FILLS_OUT_FORM_TYPE,
+  LOGIN_FILLS_OUT_PASSWORD_KEY,
+  LOGIN_ON_ERROR_TYPE,
+  LOGIN_ON_SUCCESS_TYPE,
 } from './constants';
 import {
-  TLoginResetForm,
-  TLoginSetEmailAction,
-  TLoginSetErrorsAction,
-  TLoginSetPasswordAction,
+  TLoginFillsOutEmailAction,
+  TLoginFillsOutPasswordAction,
+  TLoginOnErrorAction,
+  TLoginOnSuccessAction,
 } from './types';
 
-export const setLoginEmail = (value: string): TLoginSetEmailAction => ({
-  type: ACTION_LOGIN_SET_EMAIL_TYPE,
-  payload: {key: ACTION_LOGIN_SET_EMAIL_KEY, value},
+export const fillsOutLoginEmail = (
+  value: string,
+): TLoginFillsOutEmailAction => ({
+  type: LOGIN_FILLS_OUT_FORM_TYPE,
+  payload: {key: LOGIN_FILLS_OUT_EMAIL_KEY, value},
 });
 
-export const setLoginPassword = (value: string): TLoginSetPasswordAction => ({
-  type: ACTION_LOGIN_SET_PASSWORD_TYPE,
-  payload: {key: ACTION_LOGIN_SET_PASSWORD_KEY, value},
+export const fillsOutLoginPassword = (
+  value: string,
+): TLoginFillsOutPasswordAction => ({
+  type: LOGIN_FILLS_OUT_FORM_TYPE,
+  payload: {key: LOGIN_FILLS_OUT_PASSWORD_KEY, value},
 });
 
-export const setLoginErrors = (value: TErrorForm): TLoginSetErrorsAction => ({
-  type: ACTION_LOGIN_SET_ERRORS_TYPE,
+export const onLoginError = (value: TErrorForm): TLoginOnErrorAction => ({
+  type: LOGIN_ON_ERROR_TYPE,
   payload: value,
 });
 
-export const resetLoginForm = (): TLoginResetForm => ({
-  type: ACTION_LOGIN_RESET_FORM,
+export const onLoginSucceed = (): TLoginOnSuccessAction => ({
+  type: LOGIN_ON_SUCCESS_TYPE,
 });

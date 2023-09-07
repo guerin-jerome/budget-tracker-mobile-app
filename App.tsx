@@ -4,12 +4,20 @@
  *
  * @format
  */
-import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
+import React, {useContext, useMemo} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import {screenHeight, screenWidth} from './constants';
-import {AppStore} from './store/store';
+import {AppContext, AppStore} from './store/store';
 import {Authentication} from './features/authentication/Authentication';
 import server from './mocks/server';
+import {getIsLoginSucceed} from './store/appForms/login/selectors';
+import {getIsRegisterSucceed} from './store/appForms/register/selectors';
 
 declare global {
   interface Window {
@@ -31,16 +39,37 @@ const style = StyleSheet.create({
   },
 });
 
-/** Display */
-const App = () => (
-  <AppStore>
-    <SafeAreaView>
-      <StatusBar />
-      <ScrollView style={style.appContainer}>
-        <Authentication />
-      </ScrollView>
-    </SafeAreaView>
-  </AppStore>
-);
+const Displayer = () => {
+  const {appState} = useContext(AppContext);
+
+  const isLogged = getIsLoginSucceed(appState);
+  const isRegistered = getIsRegisterSucceed(appState);
+
+  const shouldAuthenticated = useMemo(
+    () => !isLogged && !isRegistered,
+    [isLogged, isRegistered],
+  );
+
+  return (
+    <>
+      {shouldAuthenticated && <Authentication />}
+      {isLogged && <Text>Bienvenue vous êtes bien connecté !</Text>}
+      {isRegistered && <Text>Bienvenue vous êtes bien inscrit !</Text>}
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <AppStore>
+      <SafeAreaView>
+        <StatusBar />
+        <ScrollView style={style.appContainer}>
+          <Displayer />
+        </ScrollView>
+      </SafeAreaView>
+    </AppStore>
+  );
+};
 
 export default App;

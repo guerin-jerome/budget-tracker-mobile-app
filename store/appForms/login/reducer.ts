@@ -1,9 +1,8 @@
 import {TAppState} from '../../types';
 import {
-  ACTION_LOGIN_RESET_FORM,
-  ACTION_LOGIN_SET_EMAIL_TYPE,
-  ACTION_LOGIN_SET_ERRORS_TYPE,
-  ACTION_LOGIN_SET_PASSWORD_TYPE,
+  LOGIN_FILLS_OUT_FORM_TYPE,
+  LOGIN_ON_ERROR_TYPE,
+  LOGIN_ON_SUCCESS_TYPE,
 } from './constants';
 import {TLoginActions} from './types';
 
@@ -14,8 +13,7 @@ export const loginReducer = (
   const {type} = action;
 
   switch (type) {
-    case ACTION_LOGIN_SET_PASSWORD_TYPE:
-    case ACTION_LOGIN_SET_EMAIL_TYPE:
+    case LOGIN_FILLS_OUT_FORM_TYPE:
       // eslint-disable-next-line no-case-declarations
       const {key, value} = action.payload;
       return {
@@ -24,28 +22,28 @@ export const loginReducer = (
           ...state?.appForms,
           login: {
             ...state?.appForms?.login,
-            errors: undefined,
+            error: undefined,
             [key]: value,
           },
         },
       };
-    case ACTION_LOGIN_SET_ERRORS_TYPE:
+    case LOGIN_ON_ERROR_TYPE:
       return {
         ...state,
         appForms: {
           ...state?.appForms,
           login: {
             ...state?.appForms?.login,
-            errors: action.payload,
+            error: action.payload,
           },
         },
       };
-    case ACTION_LOGIN_RESET_FORM:
+    case LOGIN_ON_SUCCESS_TYPE:
       return {
         ...state,
         appForms: {
           ...state?.appForms,
-          login: undefined,
+          login: {isSucceed: true},
         },
       };
     default:

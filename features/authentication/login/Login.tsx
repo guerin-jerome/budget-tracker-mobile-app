@@ -2,15 +2,15 @@ import React, {useContext} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import {AppContext} from '../../../store/store';
 import {
-  setLoginEmail,
-  setLoginPassword,
-} from '../../../store/appForms/login/actions';
-import {
   getLoginEmail,
   getLoginErrors,
   getLoginPassword,
 } from '../../../store/appForms/login/selectors';
 import {authenticationElementStyles} from '../styles';
+import {
+  fillsOutLoginEmail,
+  fillsOutLoginPassword,
+} from '../../../store/appForms/login/actions';
 
 const {label, input, errorText} = authenticationElementStyles;
 
@@ -26,7 +26,7 @@ export const Login = () => {
         <TextInput
           style={input}
           value={getLoginEmail(appState)}
-          onChangeText={text => dispatch(setLoginEmail(text))}
+          onChangeText={text => dispatch(fillsOutLoginEmail(text))}
         />
       </View>
       <View>
@@ -37,7 +37,7 @@ export const Login = () => {
           textContentType="password"
           secureTextEntry
           value={getLoginPassword(appState)}
-          onChangeText={text => dispatch(setLoginPassword(text))}
+          onChangeText={text => dispatch(fillsOutLoginPassword(text))}
         />
       </View>
       {formError?.message && <Text style={errorText}>{formError.message}</Text>}

@@ -8,13 +8,13 @@ import {
   getRegisterName,
   getRegisterPassword,
 } from '../../../store/appForms/register/selectors';
-import {
-  setRegisterConfirmPassword,
-  setRegisterEmail,
-  setRegisterName,
-  setRegisterPassword,
-} from '../../../store/appForms/register/actions';
 import {authenticationElementStyles} from '../styles';
+import {
+  fillsOutRegisterConfirmPassword,
+  fillsOutRegisterEmail,
+  fillsOutRegisterName,
+  fillsOutRegisterPassword,
+} from '../../../store/appForms/register/actions';
 
 const {label, input, errorText} = authenticationElementStyles;
 
@@ -30,7 +30,7 @@ export const Register = () => {
         <TextInput
           style={input}
           value={getRegisterName(appState)}
-          onChangeText={text => dispatch(setRegisterName(text))}
+          onChangeText={text => dispatch(fillsOutRegisterName(text))}
         />
       </View>
       <View>
@@ -38,7 +38,7 @@ export const Register = () => {
         <TextInput
           style={input}
           value={getRegisterEmail(appState)}
-          onChangeText={text => dispatch(setRegisterEmail(text))}
+          onChangeText={text => dispatch(fillsOutRegisterEmail(text))}
         />
       </View>
       <View>
@@ -49,7 +49,7 @@ export const Register = () => {
           textContentType="password"
           secureTextEntry
           value={getRegisterPassword(appState)}
-          onChangeText={text => dispatch(setRegisterPassword(text))}
+          onChangeText={text => dispatch(fillsOutRegisterPassword(text))}
         />
       </View>
       <View>
@@ -60,7 +60,7 @@ export const Register = () => {
           textContentType="password"
           secureTextEntry
           value={getRegisterConfirmPassword(appState)}
-          onChangeText={text => dispatch(setRegisterConfirmPassword(text))}
+          onChangeText={text => dispatch(fillsOutRegisterConfirmPassword(text))}
         />
       </View>
       {formError?.message && <Text style={errorText}>{formError.message}</Text>}

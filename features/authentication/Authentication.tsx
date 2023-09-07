@@ -8,12 +8,8 @@ import {logoSource} from '../../constants';
 import {Login} from './login/Login';
 import {AppContext} from '../../store/store';
 import {authenticationService} from '../../services/authentication';
-import {
-  resetLoginForm,
-  setLoginErrors,
-} from '../../store/appForms/login/actions';
 import {setUser} from '../../store/user/actions';
-import {hasRegisterFieldsFilled} from './utils';
+import {hasLoginFieldsFilled, hasRegisterFieldsFilled} from './utils';
 import {
   getLoginEmail,
   getLoginPassword,
@@ -21,14 +17,15 @@ import {
 import {setAppFormsAuthenticationMode} from '../../store/appForms/actions';
 import {Register} from './register/Register';
 import {
-  resetRegisterForm,
-  setRegisterErrors,
-} from '../../store/appForms/register/actions';
-import {
   getRegisterEmail,
   getRegisterName,
   getRegisterPassword,
 } from '../../store/appForms/register/selectors';
+import {onLoginError, onLoginSucceed} from '../../store/appForms/login/actions';
+import {
+  onRegisterError,
+  onRegisterSuccess,
+} from '../../store/appForms/register/actions';
 
 const {container, header, body, footer} = authenticationContainerStyles;
 const {
@@ -79,13 +76,13 @@ export const Authentication = () => {
         .register({name, email, password})
         .then(data => {
           dispatch(setUser(data));
-          dispatch(resetRegisterForm());
+          dispatch(onRegisterSuccess());
         })
-        .catch(error => {
-          switch (error.status) {
+        .catch(({status}) => {
+          switch (status) {
             case 400:
               dispatch(
-                setRegisterErrors({
+                onRegisterError({
                   message: 'Vos identifiants existent déjà, veuillez vérifier.',
                 }),
               );
@@ -93,7 +90,7 @@ export const Authentication = () => {
             case 500:
             default:
               dispatch(
-                setRegisterErrors({
+                onRegisterError({
                   message: 'Une erreur est survenue, veuillez réessayer.',
                 }),
               );
@@ -102,7 +99,7 @@ export const Authentication = () => {
         });
     } else {
       dispatch(
-        setRegisterErrors({
+        onRegisterError({
           message: 'Veuillez remplir tous les champs.',
         }),
       );
@@ -111,7 +108,7 @@ export const Authentication = () => {
 
   const login = () => {
     if (
-      hasRegisterFieldsFilled(
+      hasLoginFieldsFilled(
         appState,
       ) /** TODO: rajouter les vérifications pour éviter trop d'appels au back */
     ) {
@@ -121,13 +118,13 @@ export const Authentication = () => {
         .login({email, password})
         .then(data => {
           dispatch(setUser(data));
-          dispatch(resetLoginForm());
+          dispatch(onLoginSucceed());
         })
-        .catch(error => {
-          switch (error.status) {
+        .catch(({status}) => {
+          switch (status) {
             case 400:
               dispatch(
-                setLoginErrors({
+                onLoginError({
                   message:
                     'Vos identifiants sont incorrects, veuillez vérifier.',
                 }),
@@ -136,7 +133,7 @@ export const Authentication = () => {
             case 500:
             default:
               dispatch(
-                setLoginErrors({
+                onLoginError({
                   message: 'Une erreur est survenue, veuillez réessayer.',
                 }),
               );
@@ -145,7 +142,7 @@ export const Authentication = () => {
         });
     } else {
       dispatch(
-        setLoginErrors({
+        onLoginError({
           message: 'Veuillez remplir tous les champs.',
         }),
       );

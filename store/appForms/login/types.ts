@@ -1,32 +1,32 @@
 import {TErrorForm} from '../../types';
 
-export type TLoginSetEmailAction = {
-  type: 'appForms.login.type.set_email';
+export type TLoginFillsOutEmailAction = {
+  type: 'appForms.login.fills_out_form.type';
   payload: {
     key: 'email';
     value: string;
   };
 };
 
-export type TLoginSetPasswordAction = {
-  type: 'appForms.login.type.set_password';
+export type TLoginFillsOutPasswordAction = {
+  type: 'appForms.login.fills_out_form.type';
   payload: {
     key: 'password';
     value: string;
   };
 };
 
-export type TLoginSetErrorsAction = {
-  type: 'appForms.login.type.set_errors';
+export type TLoginOnErrorAction = {
+  type: 'appForms.login.on_error.type';
   payload: TErrorForm;
 };
 
-export type TLoginResetForm = {
-  type: 'appForms.login.type.reset_form';
+export type TLoginOnSuccessAction = {
+  type: 'appForms.login.on_success.type';
 };
 
 export type TLoginActions =
-  | TLoginSetEmailAction
-  | TLoginSetPasswordAction
-  | TLoginSetErrorsAction
-  | TLoginResetForm;
+  | TLoginFillsOutEmailAction
+  | TLoginFillsOutPasswordAction
+  | TLoginOnErrorAction
+  | TLoginOnSuccessAction;
