@@ -8,24 +8,23 @@ import {logoSource} from '../../constants';
 import {Login} from './login/Login';
 import {AppContext} from '../../store/store';
 import {authenticationService} from '../../services/authentication';
-import {setUser} from '../../store/user/actions';
-import {hasLoginFieldsFilled, hasRegisterFieldsFilled} from './utils';
-import {
-  getLoginEmail,
-  getLoginPassword,
-} from '../../store/appForms/login/selectors';
-import {setAppFormsAuthenticationMode} from '../../store/appForms/actions';
+import {checkLoginFields, checkRegisterFields} from './utils';
 import {Register} from './register/Register';
 import {
+  onChangeAuthenticationMode,
+  onLoginError,
+  onLoginSuccess,
+  onRegisterError,
+  onRegisterSuccess,
+} from '../../store/authentication/actions';
+import {
+  getAuthenticationMode,
+  getLoginEmail,
+  getLoginPassword,
   getRegisterEmail,
   getRegisterName,
   getRegisterPassword,
-} from '../../store/appForms/register/selectors';
-import {onLoginError, onLoginSucceed} from '../../store/appForms/login/actions';
-import {
-  onRegisterError,
-  onRegisterSuccess,
-} from '../../store/appForms/register/actions';
+} from '../../store/selectors';
 
 const {container, header, body, footer} = authenticationContainerStyles;
 const {
@@ -40,7 +39,7 @@ const {
 
 export const Authentication = () => {
   const {appState, dispatch} = useContext(AppContext);
-  const {authenticationMode} = appState.appForms;
+  const authenticationMode = getAuthenticationMode(appState);
 
   const isLoginMode = useMemo(
     () => authenticationMode === 'login',
@@ -49,7 +48,7 @@ export const Authentication = () => {
 
   const onClickChangeAuthenticationMode = () => {
     const newMode = isLoginMode ? 'register' : 'login';
-    dispatch(setAppFormsAuthenticationMode(newMode));
+    dispatch(onChangeAuthenticationMode(newMode));
   };
 
   const onSubmitForm = () => {
@@ -64,20 +63,14 @@ export const Authentication = () => {
   };
 
   const register = () => {
-    if (
-      hasRegisterFieldsFilled(
-        appState,
-      ) /** TODO: rajouter les vérifications pour éviter trop d'appels au back */
-    ) {
+    const {hasError, errorMessage} = checkRegisterFields(appState);
+    if (!hasError) {
       const name = getRegisterName(appState);
       const email = getRegisterEmail(appState);
       const password = getRegisterPassword(appState);
       authenticationService
         .register({name, email, password})
-        .then(data => {
-          dispatch(setUser(data));
-          dispatch(onRegisterSuccess());
-        })
+        .then(data => dispatch(onRegisterSuccess({withUser: data})))
         .catch(({status}) => {
           switch (status) {
             case 400:
@@ -98,28 +91,18 @@ export const Authentication = () => {
           }
         });
     } else {
-      dispatch(
-        onRegisterError({
-          message: 'Veuillez remplir tous les champs.',
-        }),
-      );
+      dispatch(onRegisterError({message: errorMessage ?? ''}));
     }
   };
 
   const login = () => {
-    if (
-      hasLoginFieldsFilled(
-        appState,
-      ) /** TODO: rajouter les vérifications pour éviter trop d'appels au back */
-    ) {
+    const {hasError, errorMessage} = checkLoginFields(appState);
+    if (!hasError) {
       const email = getLoginEmail(appState);
       const password = getLoginPassword(appState);
       authenticationService
         .login({email, password})
-        .then(data => {
-          dispatch(setUser(data));
-          dispatch(onLoginSucceed());
-        })
+        .then(data => dispatch(onLoginSuccess({withUser: data})))
         .catch(({status}) => {
           switch (status) {
             case 400:
@@ -141,11 +124,7 @@ export const Authentication = () => {
           }
         });
     } else {
-      dispatch(
-        onLoginError({
-          message: 'Veuillez remplir tous les champs.',
-        }),
-      );
+      dispatch(onLoginError({message: errorMessage ?? ''}));
     }
   };
 

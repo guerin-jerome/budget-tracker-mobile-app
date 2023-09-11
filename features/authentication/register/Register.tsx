@@ -1,27 +1,27 @@
 import React, {useContext} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import {AppContext} from '../../../store/store';
-import {
-  getRegisterConfirmPassword,
-  getRegisterEmail,
-  getRegisterErrors,
-  getRegisterName,
-  getRegisterPassword,
-} from '../../../store/appForms/register/selectors';
 import {authenticationElementStyles} from '../styles';
 import {
   fillsOutRegisterConfirmPassword,
   fillsOutRegisterEmail,
   fillsOutRegisterName,
   fillsOutRegisterPassword,
-} from '../../../store/appForms/register/actions';
+} from '../../../store/authentication/actions';
+import {
+  getRegisterConfirmPassword,
+  getRegisterEmail,
+  getRegisterError,
+  getRegisterName,
+  getRegisterPassword,
+} from '../../../store/selectors';
 
 const {label, input, errorText} = authenticationElementStyles;
 
 export const Register = () => {
   const {appState, dispatch} = useContext(AppContext);
 
-  const formError = getRegisterErrors(appState);
+  const formError = getRegisterError(appState);
 
   return (
     <>

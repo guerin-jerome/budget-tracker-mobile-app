@@ -1,6 +1,5 @@
 import {Dispatch} from 'react';
-import {TUserActions} from './user/types';
-import {TAppFormsActions} from './appForms/types';
+import {TAuthenticationActions} from './authentication/types';
 
 export type TUser = {
   id: string;
@@ -38,7 +37,7 @@ type TAppForms = {
   authenticationMode: TAuthenticationMode;
 };
 
-export type TAppActions = TAppFormsActions | TUserActions;
+export type TAppActions = TAuthenticationActions;
 
 export type TAppState = {
   appForms: TAppForms;

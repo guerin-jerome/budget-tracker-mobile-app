@@ -16,8 +16,11 @@ import {screenHeight, screenWidth} from './constants';
 import {AppContext, AppStore} from './store/store';
 import {Authentication} from './features/authentication/Authentication';
 import server from './mocks/server';
-import {getIsLoginSucceed} from './store/appForms/login/selectors';
-import {getIsRegisterSucceed} from './store/appForms/register/selectors';
+import {
+  getIsLoginSucceed,
+  getIsRegisterSucceed,
+  getUser,
+} from './store/selectors';
 
 declare global {
   interface Window {
@@ -44,17 +47,17 @@ const Displayer = () => {
 
   const isLogged = getIsLoginSucceed(appState);
   const isRegistered = getIsRegisterSucceed(appState);
+  const user = getUser(appState);
 
-  const shouldAuthenticated = useMemo(
-    () => !isLogged && !isRegistered,
-    [isLogged, isRegistered],
+  const isAuthenticated = useMemo(
+    () => (isLogged || isRegistered) && Object.values(user).length > 0,
+    [isLogged, isRegistered, user],
   );
 
   return (
     <>
-      {shouldAuthenticated && <Authentication />}
-      {isLogged && <Text>Bienvenue vous êtes bien connecté !</Text>}
-      {isRegistered && <Text>Bienvenue vous êtes bien inscrit !</Text>}
+      {!isAuthenticated && <Authentication />}
+      {isAuthenticated && <Text>Bienvenue vous êtes bien connecté !</Text>}
     </>
   );
 };

@@ -1,23 +1,23 @@
 import React, {useContext} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import {AppContext} from '../../../store/store';
-import {
-  getLoginEmail,
-  getLoginErrors,
-  getLoginPassword,
-} from '../../../store/appForms/login/selectors';
 import {authenticationElementStyles} from '../styles';
 import {
   fillsOutLoginEmail,
   fillsOutLoginPassword,
-} from '../../../store/appForms/login/actions';
+} from '../../../store/authentication/actions';
+import {
+  getLoginEmail,
+  getLoginError,
+  getLoginPassword,
+} from '../../../store/selectors';
 
 const {label, input, errorText} = authenticationElementStyles;
 
 export const Login = () => {
   const {appState, dispatch} = useContext(AppContext);
 
-  const formError = getLoginErrors(appState);
+  const formError = getLoginError(appState);
 
   return (
     <>
