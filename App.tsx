@@ -21,6 +21,7 @@ import {
   getIsRegisterSucceed,
   getUser,
 } from './store/selectors';
+import {Home} from './features/home/Home';
 
 declare global {
   interface Window {
@@ -54,12 +55,7 @@ const Displayer = () => {
     [isLogged, isRegistered, user],
   );
 
-  return (
-    <>
-      {!isAuthenticated && <Authentication />}
-      {isAuthenticated && <Text>Bienvenue vous êtes bien connecté !</Text>}
-    </>
-  );
+  return <>{isAuthenticated ? <Home /> : <Authentication />}</>;
 };
 
 const App = () => {

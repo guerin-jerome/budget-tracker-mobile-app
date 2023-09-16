@@ -2,6 +2,7 @@ export const ACTION_AUTHENTICATION_PREFIX = 'authentication.';
 
 // Type
 export const CHANGE_AUTHENTICATION_MODE_TYPE = `${ACTION_AUTHENTICATION_PREFIX}change_mode.type`;
+export const LOGOUT_TYPE = `${ACTION_AUTHENTICATION_PREFIX}logout.type`;
 
 /** Login */
 // Type

@@ -6,6 +6,7 @@ import {
   LOGIN_FILLS_OUT_PASSWORD_KEY,
   LOGIN_ON_ERROR_TYPE,
   LOGIN_ON_SUCCESS_TYPE,
+  LOGOUT_TYPE,
   REGISTER_FILLS_OUT_CONFIRM_PASSWORD_KEY,
   REGISTER_FILLS_OUT_EMAIL_KEY,
   REGISTER_FILLS_OUT_FORM_TYPE,
@@ -24,6 +25,7 @@ import {
   TAuthenticationFillsOutRegisterPasswordAction,
   TAuthenticationLoginOnErrorAction,
   TAuthenticationLoginOnSuccessAction,
+  TAuthenticationLogout,
   TAuthenticationRegisterOnErrorAction,
   TAuthenticationRegisterOnSuccessAction,
   TAuthenticationSucceedPayload,
@@ -122,4 +124,8 @@ export const onChangeAuthenticationMode = (
 ): TAuthenticationChangeMode => ({
   type: CHANGE_AUTHENTICATION_MODE_TYPE,
   payload: mode,
+});
+
+export const onLogout = (): TAuthenticationLogout => ({
+  type: LOGOUT_TYPE,
 });

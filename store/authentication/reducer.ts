@@ -1,9 +1,11 @@
+import {initialState} from '../store';
 import {TAppState} from '../types';
 import {
   CHANGE_AUTHENTICATION_MODE_TYPE,
   LOGIN_FILLS_OUT_FORM_TYPE,
   LOGIN_ON_ERROR_TYPE,
   LOGIN_ON_SUCCESS_TYPE,
+  LOGOUT_TYPE,
   REGISTER_FILLS_OUT_FORM_TYPE,
   REGISTER_ON_ERROR_TYPE,
   REGISTER_ON_SUCCESS_TYPE,
@@ -101,6 +103,8 @@ export const authenticationReducer = (
           authenticationMode: action.payload,
         },
       };
+    case LOGOUT_TYPE:
+      return initialState;
     default:
       throw new Error(
         `Unknown action in authenticationReducer, with type: ${type}`,

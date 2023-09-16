@@ -77,6 +77,10 @@ export type TAuthenticationChangeMode = {
   payload: TAuthenticationMode;
 };
 
+export type TAuthenticationLogout = {
+  type: 'authentication.logout.type';
+};
+
 export type TAuthenticationActions =
   | TAuthenticationFillsOutLoginEmailAction
   | TAuthenticationFillsOutLoginPasswordAction
@@ -88,4 +92,5 @@ export type TAuthenticationActions =
   | TAuthenticationFillsOutRegisterConfirmPasswordAction
   | TAuthenticationRegisterOnErrorAction
   | TAuthenticationRegisterOnSuccessAction
-  | TAuthenticationChangeMode;
+  | TAuthenticationChangeMode
+  | TAuthenticationLogout;
