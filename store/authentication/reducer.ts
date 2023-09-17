@@ -48,7 +48,10 @@ export const authenticationReducer = (
     case LOGIN_ON_SUCCESS_TYPE:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.withUser,
+        accounts: action.payload.andAccounts,
+        budgets: action.payload.andBudgets,
+        expenses: action.payload.andExpenses,
         appForms: {
           ...state?.appForms,
           login: {isSucceed: true},
@@ -83,7 +86,9 @@ export const authenticationReducer = (
     case REGISTER_ON_SUCCESS_TYPE:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.withUser,
+        accounts: [],
+        budgets: [],
         appForms: {
           ...state?.appForms,
           register: {isSucceed: true},

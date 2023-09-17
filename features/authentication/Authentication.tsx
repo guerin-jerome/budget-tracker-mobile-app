@@ -102,7 +102,16 @@ export const Authentication = () => {
       const password = getLoginPassword(appState);
       authenticationService
         .login({email, password})
-        .then(data => dispatch(onLoginSuccess({withUser: data})))
+        .then(({user, accounts, budgets, expenses}) =>
+          dispatch(
+            onLoginSuccess({
+              withUser: user,
+              andAccounts: accounts,
+              andBudgets: budgets,
+              andExpenses: expenses,
+            }),
+          ),
+        )
         .catch(({status}) => {
           switch (status) {
             case 400:

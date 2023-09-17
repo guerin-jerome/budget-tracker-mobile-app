@@ -28,7 +28,8 @@ import {
   TAuthenticationLogout,
   TAuthenticationRegisterOnErrorAction,
   TAuthenticationRegisterOnSuccessAction,
-  TAuthenticationSucceedPayload,
+  TAuthenticationRegisterSucceedPayload,
+  TAuthenticationLoginSucceedPayload,
 } from './types';
 
 export const fillsOutLoginEmail = (
@@ -58,11 +59,11 @@ export const onLoginError = (
   payload: error,
 });
 
-export const onLoginSuccess = ({
-  withUser,
-}: TAuthenticationSucceedPayload): TAuthenticationLoginOnSuccessAction => ({
+export const onLoginSuccess = (
+  payload: TAuthenticationLoginSucceedPayload,
+): TAuthenticationLoginOnSuccessAction => ({
   type: LOGIN_ON_SUCCESS_TYPE,
-  payload: withUser,
+  payload,
 });
 
 export const fillsOutRegisterName = (
@@ -112,11 +113,11 @@ export const onRegisterError = (
   payload: error,
 });
 
-export const onRegisterSuccess = ({
-  withUser,
-}: TAuthenticationSucceedPayload): TAuthenticationRegisterOnSuccessAction => ({
+export const onRegisterSuccess = (
+  payload: TAuthenticationRegisterSucceedPayload,
+): TAuthenticationRegisterOnSuccessAction => ({
   type: REGISTER_ON_SUCCESS_TYPE,
-  payload: withUser,
+  payload,
 });
 
 export const onChangeAuthenticationMode = (

@@ -1,16 +1,19 @@
 import React, {useContext} from 'react';
-import {View, Text, ScrollView, Pressable} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import {homeContainerStyles, homeElementStyles} from './styles';
 import {onLogout} from '../../store/authentication/actions';
 import {AppContext} from '../../store/store';
+import {Accounts} from './accounts/Accounts';
+import {getUserName} from '../../store/selectors';
 
 const {container, homeHeader} = homeContainerStyles;
 const {headerText, deconnexionButton, deconnexionButtonText} =
   homeElementStyles;
 
 export const Home = () => {
-  const {dispatch} = useContext(AppContext);
+  const {appState, dispatch} = useContext(AppContext);
 
+  const username = getUserName(appState);
   const onClickDeconnexion = () => dispatch(onLogout());
 
   return (
@@ -18,15 +21,13 @@ export const Home = () => {
       <View style={homeHeader}>
         <View>
           <Text style={headerText}>Bonjour</Text>
-          <Text style={headerText}>Axelle,</Text>
+          <Text style={headerText}>{username},</Text>
         </View>
         <Pressable onPress={onClickDeconnexion} style={deconnexionButton}>
           <Text style={deconnexionButtonText}>Déconnexion</Text>
         </Pressable>
       </View>
-      <ScrollView horizontal>
-        <View></View>
-      </ScrollView>
+      <Accounts />
     </View>
   );
 };

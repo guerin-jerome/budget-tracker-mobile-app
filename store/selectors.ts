@@ -1,6 +1,9 @@
 import {TAppState} from './types';
 
 export const getUser = (appState: TAppState) => appState.user ?? {};
+export const getAccounts = (appState: TAppState) => appState.accounts ?? [];
+export const getBudgets = (appState: TAppState) => appState.budgets ?? [];
+export const getExpenses = (appState: TAppState) => appState.expenses ?? [];
 
 export const getAuthenticationMode = (appState: TAppState) =>
   appState.appForms.authenticationMode;
@@ -28,3 +31,7 @@ export const getRegisterError = (appState: TAppState) =>
   appState.appForms.register?.error;
 export const getIsRegisterSucceed = (appState: TAppState) =>
   appState.appForms.register?.isSucceed ?? false;
+
+/** User */
+export const getUserName = (appState: TAppState) =>
+  getUser(appState)?.name ?? '';

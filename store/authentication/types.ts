@@ -1,7 +1,21 @@
-import {TAuthenticationMode, TErrorForm, TUser} from '../types';
+import {
+  TAccount,
+  TAuthenticationMode,
+  TBudget,
+  TErrorForm,
+  TExpense,
+  TUser,
+} from '../types';
 
-export type TAuthenticationSucceedPayload = {
+export type TAuthenticationRegisterSucceedPayload = {
   withUser: TUser;
+};
+
+export type TAuthenticationLoginSucceedPayload = {
+  withUser: TUser;
+  andAccounts: TAccount[];
+  andBudgets: TBudget[];
+  andExpenses: TExpense[];
 };
 
 export type TAuthenticationFillsOutLoginEmailAction = {
@@ -27,7 +41,7 @@ export type TAuthenticationLoginOnErrorAction = {
 
 export type TAuthenticationLoginOnSuccessAction = {
   type: 'authentication.login.on_success.type';
-  payload: TUser;
+  payload: TAuthenticationLoginSucceedPayload;
 };
 
 export type TAuthenticationFillsOutRegisterNameAction = {
@@ -69,7 +83,7 @@ export type TAuthenticationRegisterOnErrorAction = {
 
 export type TAuthenticationRegisterOnSuccessAction = {
   type: 'authentication.register.on_success.type';
-  payload: TUser;
+  payload: TAuthenticationRegisterSucceedPayload;
 };
 
 export type TAuthenticationChangeMode = {

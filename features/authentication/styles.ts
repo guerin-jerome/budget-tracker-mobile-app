@@ -29,6 +29,7 @@ export const authenticationElementStyles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 25,
+    color: '#1f2937',
   },
   firstButton: {
     backgroundColor: '#dd8a19',
@@ -52,13 +53,16 @@ export const authenticationElementStyles = StyleSheet.create({
   },
   secondElementText: {
     fontSize: 16,
+    color: '#1f2937',
   },
   label: {
     fontSize: 15,
+    color: '#1f2937',
   },
   input: {
     borderRadius: 3,
     borderWidth: 2,
+    borderColor: '#1f2937',
     padding: 10,
     marginBottom: 15,
   },
